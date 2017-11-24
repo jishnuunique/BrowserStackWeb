@@ -8,7 +8,7 @@ var fs = require('fs'),
     file;
 path = require('path'),    
 filePath = path.join(__dirname, 'test_log.log');
-
+var data_ = ""
 
 
 function get_last_ten_line(s,flag)
@@ -54,11 +54,13 @@ function tail_file(io){
         // Do whatever you need. Just be careful about not using beyond the bytecount in buff.
         
         var data = buff.toString('utf-8', 0, bytecount);
+        data_ += data
 
         if(flag == false){
         	data = get_last_ten_line(data,flag);
         	console.log(data+flag.toString());
         	starting_string = data;
+        	
         	flag = true
         	// res.send(data + flag.toString());
    		 }
@@ -69,6 +71,7 @@ function tail_file(io){
 		// else{
 		// 	data = starting_string+data;
 		// 	data = get_last_ten_line(data,flag)
+
 			console.log(data+flag.toString());
 			// (data)
 
@@ -86,6 +89,8 @@ function tail_file(io){
     var stats = fs.fstatSync(file); // yes sometimes async does not make sense!
     if(stats.size<readbytes+1) {
         console.log('Hehe I am much faster than your writer..! I will sleep for a while, I deserve it!');
+        console.log(stats.size);
+        console.log(readbytes);
         setTimeout(readsome, 3000);
     }
     else {
@@ -107,6 +112,7 @@ flag = false;
 function Redirect() {
 	 this.fun = {flashMe:  function(io) {
 		console.log("Hi Joy! you are redirected here.");
+		console.log(get_last_ten_line(data_,false));
 		// console.log("#### tail request from : "+req.connection.remoteAddress);
 		// console.log("!!"+req.file);
 		// var tmp_path = req.file.path;
