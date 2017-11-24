@@ -1,0 +1,16 @@
+<html>
+  <body>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	    var socket = io.connect('http://localhost:3000');
+
+	    // listening for the connected event from the server
+	    socket.on('connected', function(data) {
+	        console.log('The server said: ' + data.message);
+	    });
+
+	    // sending a message event to the server
+	    socket.emit('logs_tail', { message: 'Hi!' });
+	</script>
+  </body>
+</html>

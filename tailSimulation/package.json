@@ -1,0 +1,15 @@
+{
+  "name": "tail_simulation",
+  "version": "1.0.0",
+  "description": "Tail Simulation for Browserstack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node WebApp/index.js"
+  },
+  "author": "Joydeep",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}
