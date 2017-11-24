@@ -48,14 +48,14 @@ http.listen(3000, function () {
 io.on('connection',function(socket){
 	console.log("connected");
 
-	io.emit("connected");
+	io.emit("connected",{message: 'server'});
 
 // This event will trigger when any user is connected.
 // You can use 'socket' to emit and receive events.
 socket.on('logs_tail',function(data){
 // When any connected client emit this event, we will receive it here.
 io.emit('something happend'); // for all.
-socket.broadcast.emit('something happend'); 
+socket.broadcast.emit('something happend',{message:'server 2'}); 
 console.log("fhjs")
 sayRedirect(io);// for all except me.
 });
