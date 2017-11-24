@@ -2,7 +2,7 @@
   <body>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
-	    var socket = io.connect('http://localhost:3000');
+	    var socket = io.connect(window.location.href);
 
 	    // listening for the connected event from the server
 	    socket.on('connected', function(data) {
