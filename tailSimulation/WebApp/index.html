@@ -1,13 +1,17 @@
 <html>
   <body>
+  	<input type="textbox" id="output">
+  	
+  	
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 	    var socket = io.connect(window.location.href);
 	    var flag = false;
+	    var tot =0;
 
 	    // listening for the connected event from the server
 	    socket.on('connected', function(data) {
-	    	
+
 	    });
 
 	    // sending a message event to the server
@@ -15,11 +19,15 @@
 	    socket.on('first req', function(data) {
 	        if(!flag){
 	        console.log('The server said: ' + data.message);
+	        
+	        document.getElementById('output').value = data.message
+	        
 	    }
 	    flag = true;
 	    });
 	    socket.on('update req', function(data) {
 	        console.log('The server said: ' + data.message);
+	        document.getElementById("output").value += data.message
 	    });
 	</script>
   </body>
