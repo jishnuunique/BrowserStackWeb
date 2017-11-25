@@ -11,7 +11,10 @@
 
 	    // sending a message event to the server
 	    socket.emit('logs_tail', { message: 'Hi!' });
-	    socket.on('something happend', function(data) {
+	    socket.on('first req', function(data) {
+	        console.log('The server said: ' + data.message);
+	    });
+	    socket.on('update req', function(data) {
 	        console.log('The server said: ' + data.message);
 	    });
 	</script>
