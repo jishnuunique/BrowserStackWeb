@@ -22,9 +22,10 @@ var express = require('express');
 app = express();
 var http    = require('http').Server(app);
 var io      = require('socket.io')(http);
+flag = false
 
 
-function get_last_ten_line(s,flag)
+function get_last_ten_line(s)
 {
 	var s_arr = s.split("\n");
 	var len = s_arr.length;
@@ -70,12 +71,12 @@ function tail_file(){
         data_ += data
 
         if(flag == false){
-        	data = get_last_ten_line(data,flag);
+        	data = get_last_ten_line(data);
         	console.log(data+flag.toString());
         	starting_string = data;
         	
         	flag = true
-        	io.emit('first req',{message:get_last_ten_line(data_,false)});
+        	io.emit('first req',{message:get_last_ten_line(data)});
         	// res.send(data + flag.toString());
    		 }
         
@@ -88,7 +89,8 @@ function tail_file(){
 
 			//console.log(data+flag.toString());
 			else{
-			io.emit('update req',{message:(data,false)});
+			io.emit('update req',{message:data});
+			console.log(data+flag.toString());
 		}
 			// (data)
 
@@ -119,7 +121,7 @@ function tail_file(){
 
 fs.open(filePath, 'r', function(err, fd) { file = fd; readsome(); });
 starting_string = ""
-flag = false;
+//flag = false;
 
 
     
@@ -130,7 +132,9 @@ function Redirect() {
 	 this.fun = {flashMe:  function() {
 		console.log("Hi Joy! you are redirected here.");
 		console.log(get_last_ten_line(data_,false));
-		io.emit('first req',{message:get_last_ten_line(data_,false)});
+		if(flag == true){
+		io.emit('first req',{message:get_last_ten_line(data_)});
+	}
 
 		// console.log("#### tail request from : "+req.connection.remoteAddress);
 		// console.log("!!"+req.file);
